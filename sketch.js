@@ -11,7 +11,7 @@ renderer.setSize(window.innerWidth,window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 window.addEventListener('resize', () => {renderer.setSize(window.innerWidth,window.innerHeight);
-																				camera.aspect = innerWidth/window.innerHeight; 
+																				camera.aspect = window.innerWidth/window.innerHeight; 
 																				camera.updateProjectionMatrix();});
 
 var raycaster = new THREE.Raycaster();
@@ -33,7 +33,7 @@ var pink_material = new THREE.MeshLambertMaterial({color: 0xFF00CC});
 var yellow_material = new THREE.MeshLambertMaterial({color: 0xFFCC11});
 var teal_material = new THREE.MeshLambertMaterial({color: 0x7744FF});
 var red_material = new THREE.MeshLambertMaterial({color:"rgb(255,140,140)"});
-var changing_material = THREE.MeshLambertMaterial({color: random_color()});
+//var changing_material = THREE.MeshLambertMaterial({color: random_color()});
 var sph_mesh = new THREE.Mesh(sph1,teal_material);
 var box_mesh = new THREE.Mesh(box1,red_material);
 
@@ -66,7 +66,8 @@ function on_moved(event){
 		this.tl = new TimelineMax();
 		this.tl.to(intersects[i].object.scale, 1 ,{x:2,ease:Expo.easeout});
 		this.tl.to(intersects[i].object.scale, 1 ,{x:-1,ease:Expo.easeout});
-		var changing_material = THREE.MeshLambertMaterial({color: random_color()});
+		let ran_col = random_color();
+		intersects[i].object.material.color.set(ran_col);
 	}
 	
 }
