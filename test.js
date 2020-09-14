@@ -72,7 +72,7 @@ function move_light(event){
 	mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
 	
 	raycaster.setFromCamera(mouse, camera);
-	white_light.position.set(mouse.x,mouse.y,4);
+	white_light.position.set(mouse.x,mouse.y,3.9);
 	scene.add(white_light);
 	render();
 	console.log(white_light.position);
@@ -97,7 +97,7 @@ function clicked(){
 function stuff_definitions(){
 	var cube1 = new THREE.BoxGeometry(2,2,2);
 	var sph1 = new THREE.SphereGeometry(0.5,20,20);
-	var decahedron1 = new THREE.DodecahedronGeometry(1);
+	var decahedron1 = new THREE.DodecahedronGeometry(1,3);
 	
 	var teal_material = new THREE.MeshLambertMaterial({color: 0x7744FF});
 	var pink_material = new THREE.MeshLambertMaterial({color: 0xFF00CC});
