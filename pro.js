@@ -7,6 +7,7 @@ new_sizes();
 let scene;
 let camera;
 let renderer;
+let loader;
 
 
 function init(){
@@ -25,6 +26,11 @@ function init(){
 	renderer.setClearColor("#f4f4f4");
 	
 	document.body.appendChild(renderer.domElement);
+	
+	loader = new THREE.GLTFLoader();
+	loader.load("./pro.glb",function(gltf){
+		scene.add(gltf.scene);
+	})
 	
 }
 
