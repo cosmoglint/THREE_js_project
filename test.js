@@ -24,12 +24,14 @@ let camera;
 let renderer;
 
 let cube_mesh;
+let cube2_mesh;
 let decahedron_mesh;
 
 let raycaster = new THREE.Raycaster();
 let mouse = new THREE.Vector2();
 
 let running = true;
+let lst = [];
 
 function init(){
 
@@ -72,10 +74,10 @@ function move_light(event){
 	mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
 	
 	raycaster.setFromCamera(mouse, camera);
-	white_light.position.set(mouse.x,mouse.y,3.9);
+	white_light.position.set(mouse.x,mouse.y,-3);
 	scene.add(white_light);
 	render();
-	console.log(white_light.position);
+//	console.log(white_light.position);
 }
 
 function clicked(){
@@ -97,7 +99,7 @@ function clicked(){
 function stuff_definitions(){
 	var cube1 = new THREE.BoxGeometry(2,2,2);
 	var sph1 = new THREE.SphereGeometry(0.5,20,20);
-	var decahedron1 = new THREE.DodecahedronGeometry(1,3);
+	var decahedron1 = new THREE.DodecahedronGeometry(1);
 	
 	var teal_material = new THREE.MeshLambertMaterial({color: 0x7744FF});
 	var pink_material = new THREE.MeshLambertMaterial({color: 0xFF00CC});
@@ -109,10 +111,17 @@ function stuff_definitions(){
 	
 	sph_mesh.position.set(0,0,3);
 	
-	cube_mesh.position.set(0,0,2);
+	cube_mesh.position.set(-2,0,-5);
 	
-	decahedron_mesh.position.set(0,0,3)
-	scene.add(decahedron_mesh);
+	decahedron_mesh.position.set(0,0,3);
+	
+	
+	var cube2 = new THREE.BoxGeometry(0.5,0.5,0.5);
+	cube2_mesh = new THREE.Mesh(cube1,teal_material);
+	cube2_mesh.position.set(2,0,-5)
+	
+	scene.add(cube_mesh);
+	scene.add(cube2_mesh);
 	
 	white_light = new THREE.PointLight("rgb(255,255,255)",3,10);
 //	white_light = new THREE.PointLight("rgb(255,255,255)",3,2.5);
@@ -121,8 +130,29 @@ function stuff_definitions(){
 	
 }
 
+function create_objects(){
+	for (i=0 ; i<100; i++){
+	var cube1 = new THREE.BoxGeometry(0.5,0.5,0.5);
+	var teal_material = new THREE.MeshLambertMaterial({color: 0x7744FF});
+	var cube_mesh = new THREE.Mesh(cube1,teal_material);
+	cube_mesh.position.set((Math.random() - 0.5 )*10,(Math.random() - 0.5 )*10,-5);
+	scene.add(cube_mesh);
+	console.log(lst);
+	lst.push(cube_mesh);
+	}
+}
+
 function animate(){
-	var mesh = decahedron_mesh;
+	var mesh = cube_mesh;
+	requestAnimationFrame(animate);
+	mesh.rotation.z += 0.005;
+	mesh.rotation.x += 0.005;
+	mesh.rotation.y += 0.05;
+	render();
+}
+function animate2(){
+	
+	var mesh = cube2_mesh;
 	requestAnimationFrame(animate);
 	mesh.rotation.z += 0.005;
 	mesh.rotation.x += 0.005;
@@ -139,9 +169,14 @@ function render(){
 function main_loop(){
 	init();
 	stuff_definitions();
-	
+//	create_objects();
 	render();
+//	animate();
+//	for (i=0; i<lst.length;i++){
+//	mesh = lst[i];
 	animate();
+	animate2();
+//	}
 }
 main_loop();
 
