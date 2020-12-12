@@ -74,7 +74,7 @@ function move_light(event){
 	mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
 	
 	raycaster.setFromCamera(mouse, camera);
-	white_light.position.set(mouse.x,mouse.y,-3);
+	white_light.position.set(mouse.x,mouse.y,1);
 	scene.add(white_light);
 	render();
 //	console.log(white_light.position);
@@ -102,6 +102,8 @@ function stuff_definitions(){
 	var decahedron1 = new THREE.DodecahedronGeometry(1);
 	
 	var teal_material = new THREE.MeshLambertMaterial({color: 0x7744FF});
+	var teal2_material = new THREE.MeshStandardMaterial({color: 0x7744FF});
+
 	var pink_material = new THREE.MeshLambertMaterial({color: 0xFF00CC});
 	var red_material = new THREE.MeshLambertMaterial({color:"rgb(255,140,140)"});
 	
@@ -111,14 +113,19 @@ function stuff_definitions(){
 	
 	sph_mesh.position.set(0,0,3);
 	
-	cube_mesh.position.set(-2,0,-5);
+	cube_mesh.position.set(-2,0,-1);
 	
 	decahedron_mesh.position.set(0,0,3);
 	
+	var plane = new THREE.PlaneGeometry(40,40);
+	var plane_mesh = new THREE.Mesh(plane,teal2_material);
+	plane_mesh.position.set(0,0,-3);
+	scene.add(plane_mesh);
 	
 	var cube2 = new THREE.BoxGeometry(0.5,0.5,0.5);
 	cube2_mesh = new THREE.Mesh(cube1,teal_material);
-	cube2_mesh.position.set(2,0,-5)
+	cube2_mesh.position.set(2,0,-1)
+	
 	
 	scene.add(cube_mesh);
 	scene.add(cube2_mesh);
